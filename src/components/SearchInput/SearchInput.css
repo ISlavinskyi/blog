@@ -1,0 +1,23 @@
+.Input {
+    width: 210px;
+    height: 35px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgba(0,0,0,.24);
+    padding: 12px 20px 12px 10px;
+    transition: width 0.4s ease-in-out;
+    color: #fff;
+    margin-top: 4px;
+}
+
+.Input::placeholder {
+    color: #ffffff;
+}
+
+.InputWrapper {
+    width: 980px;
+    display: flex;
+    justify-content: flex-end;
+}

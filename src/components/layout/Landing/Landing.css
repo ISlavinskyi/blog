@@ -1,0 +1,8 @@
+.LandingWrapper {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    width: 980px;
+}

@@ -1,6 +1,6 @@
 .header {
     height: 45px;
-    width: inherit;
+    width: 100%;
     background-color: #2196F3;
     display: flex;
     justify-content: center;
