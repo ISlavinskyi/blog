@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './NavBar.css';
+import classes from './NavBar.css';
 const navBar = () => {
     return (
-    <div className={header}></div>
+    <div className={classes.header}></div>
     )
 };
 

@@ -3,6 +3,7 @@
     padding: 0;
 }
 
-#App {
+.App {
     display: flex;
+
 }

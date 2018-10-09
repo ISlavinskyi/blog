@@ -7,8 +7,3 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
-body {
-    background: url("images/back.png") no-repeat center center fixed;
-    background-size: cover;
-}
