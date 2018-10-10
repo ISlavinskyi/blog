@@ -1,15 +1,39 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import SearchInput from '../../SearchInput/SearchInput'
 
 import classes from './NavBar.css';
 
-const navBar = (props) => {
-    return (
-    <div className={classes.header}>
-        <SearchInput/>
-    </div>
-    )
-};
+class NavBar extends Component {
 
-export default navBar;
+    render() {
+        console.log(this.props);
+        return (
+            <div className={classes.header}>
+                <div className={classes.HeaderContent}>
+                    <div className={classes.Controls}>
+                        <Link
+                            to="/"
+                            className={`${classes.Home} ${classes.Control}`}>
+                            Home
+                        </Link>
+                        <Link
+                            to="/posts"
+                            className={classes.Control}>
+                            Posts
+                        </Link>
+                        <Link
+                            to="/users"
+                            className={classes.Control}>
+                            Users
+                        </Link>
+                    </div>
+                    <SearchInput/>
+                </div>
+            </div>
+        )
+    };
+}
+
+export default NavBar;

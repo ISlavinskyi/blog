@@ -3,3 +3,12 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.Error {
+    justify-self: center;
+}
+
+.Container {
+   display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,6 @@
+.Posts {
+    width: 980px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

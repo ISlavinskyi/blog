@@ -17,7 +17,6 @@
 }
 
 .InputWrapper {
-    width: 980px;
     display: flex;
     justify-content: flex-end;
 }

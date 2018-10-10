@@ -6,6 +6,9 @@ import {connect} from "react-redux";
 
 import classes from './App.css';
 
+
+import Posts from '../components/Posts/Posts';
+import Users from '../components/Users/Users';
 import NavBar from '../components/layout/NavBar/NavBar';
 import Landing from '../components/layout/Landing/Landing';
 import Footer from '../components/layout/Footer';
@@ -13,8 +16,7 @@ import Footer from '../components/layout/Footer';
 
 class App extends Component {
     componentWillMount() {
-        console.log(this.props)
-        const {fetching, onRequestPosts, error} = this.props;
+        const {fetching, onRequestPosts} = this.props;
         if (!fetching) {
             onRequestPosts();
         }
@@ -26,10 +28,14 @@ class App extends Component {
             <Router>
                 <div className={classes.App}>
                     <NavBar/>
-                    {this.props.error && <p style={{ color: "red" }}>Uh oh - something went wrong!</p>}
+                    {this.props.error && <p className={classes.Error}>Uh oh - something went wrong!</p>}
                     <Route exact path="/"
                            component={_ => <Landing posts={this.props.updatePosts}/>}
                     />
+                    <div className={classes.Container}>
+                        <Route exact path="/posts" component={() => <Posts posts={this.props.updatePosts}/>}/>
+                        <Route exact path="/users" component={() => <Users users={this.props.users}/>}/>
+                    </div>
                     <Footer/>
                 </div>
             </Router>
@@ -42,6 +48,7 @@ const mapStateToProps = state => {
     return {
         fetching: state.fetching,
         posts: state.posts,
+        users: state.users,
         updatePosts: state.updatePosts,
         error: state.error
     };
