@@ -6,7 +6,10 @@ const post = (props) => {
     return (
         <div className={classes.PostWrapper}>
             <div className={classes.Post}>
-                <p className={classes.Title}>{props.title}</p>
+                <p
+                    className={classes.Title}
+                    onClick={props.titleClick}
+                >{props.title}</p>
                 <p className={classes.Body}>
                     <span>{props.article}</span>
                 </p>

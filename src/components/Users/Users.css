@@ -1,0 +1,6 @@
+.Users {
+    width: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

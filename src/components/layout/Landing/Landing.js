@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Posts from '../../Posts/Posts'
-
 import classes from './Landing.css';
 
 const landing = (props) => {

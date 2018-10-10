@@ -21,7 +21,9 @@ class App extends Component {
             onRequestPosts();
         }
     }
-
+    titleClick = (event, id) => {
+        alert(id)
+    };
     render() {
 
         return (
@@ -33,7 +35,10 @@ class App extends Component {
                            component={_ => <Landing posts={this.props.updatePosts}/>}
                     />
                     <div className={classes.Container}>
-                        <Route exact path="/posts" component={() => <Posts posts={this.props.updatePosts}/>}/>
+                        <Route exact path="/posts" component={() => <Posts
+                            posts={this.props.updatePosts}
+                            titleClick={this.titleClick}
+                        />}/>
                         <Route exact path="/users" component={() => <Users users={this.props.users}/>}/>
                     </div>
                     <Footer/>
