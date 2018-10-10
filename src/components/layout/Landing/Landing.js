@@ -8,6 +8,7 @@ const landing = (props) => {
     const posts = props.posts.map(post => <Post
         key={post.id}
         title={post.title}
+        username={post.username}
         article={post.body.substring(0,100) + '...'}
     />);
     return (

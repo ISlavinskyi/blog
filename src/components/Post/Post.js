@@ -11,7 +11,7 @@ const post = (props) => {
                     <span>{props.article}</span>
                 </p>
                 <div className={classes.Footer}>
-                    <p>Author</p>
+                    <p><span>Author: </span>{props.username}</p>
                     <p>timestamp</p>
                 </div>
             </div>

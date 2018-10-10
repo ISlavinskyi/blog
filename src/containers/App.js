@@ -12,23 +12,24 @@ import Footer from '../components/layout/Footer';
 
 
 class App extends Component {
-    render() {
+    componentWillMount() {
+        console.log(this.props)
+        const {fetching, onRequestPosts, error} = this.props;
+        if (!fetching) {
+            onRequestPosts();
+        }
+    }
 
-        const {fetching, posts, onRequestPosts, error} = this.props;
+    render() {
 
         return (
             <Router>
                 <div className={classes.App}>
                     <NavBar/>
+                    {this.props.error && <p style={{ color: "red" }}>Uh oh - something went wrong!</p>}
                     <Route exact path="/"
-                           component={_ => <Landing posts={posts}/>}
+                           component={_ => <Landing posts={this.props.updatePosts}/>}
                     />
-                    {fetching ? (
-                        <button disabled>Fetching...</button>
-                    ) : (
-                        <button onClick={onRequestPosts}>get posts</button>
-                    )}
-
                     <Footer/>
                 </div>
             </Router>
@@ -38,10 +39,10 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         fetching: state.fetching,
         posts: state.posts,
+        updatePosts: state.updatePosts,
         error: state.error
     };
 };
