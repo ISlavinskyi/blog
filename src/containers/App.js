@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {connect} from "react-redux";
 
@@ -12,18 +12,21 @@ import Users from '../components/Users/Users';
 import NavBar from '../components/layout/NavBar/NavBar';
 import Landing from '../components/layout/Landing/Landing';
 import Footer from '../components/layout/Footer';
+import PostItem from '../components/Posts/PostItem/PostItem';
 
 
 class App extends Component {
-    componentWillMount() {
+    componentDidMount() {
         const {fetching, onRequestPosts} = this.props;
         if (!fetching) {
-            onRequestPosts();
+             onRequestPosts();
         }
     }
+
     titleClick = (event, id) => {
         alert(id)
     };
+
     render() {
 
         return (
@@ -40,6 +43,9 @@ class App extends Component {
                             titleClick={this.titleClick}
                         />}/>
                         <Route exact path="/users" component={() => <Users users={this.props.users}/>}/>
+                        <Switch>
+                            <Route exact path={`/posts/:postId`} component={(props) => <PostItem {...props}/>}/>
+                        </Switch>
                     </div>
                     <Footer/>
                 </div>
@@ -61,7 +67,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRequestPosts: () => dispatch({type: "API_CALL_REQUEST"})
+        onRequestPosts: () => dispatch({type: "API_CALL_REQUEST_POSTS"})
     };
 };
 

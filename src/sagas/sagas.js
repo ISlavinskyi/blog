@@ -2,20 +2,14 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import axios from 'axios';
 
 export function* watcherSaga() {
-    yield takeLatest('API_CALL_REQUEST', workerSaga);
+    yield takeLatest('API_CALL_REQUEST_POSTS', workerSaga);
+    yield takeLatest('API_CALL_REQUEST_POST', workerSagaPost);
 }
 
-function fetchPosts() {
+function fetchData(path) {
     return axios({
         method: 'get',
-        url: 'https://jsonplaceholder.typicode.com/posts'
-    });
-}
-
-function fetchUsers() {
-    return axios({
-        method: 'get',
-        url: 'https://jsonplaceholder.typicode.com/users'
+        url: `https://jsonplaceholder.typicode.com/${path}`
     });
 }
 
@@ -30,12 +24,24 @@ function userToPost(posts, users) {
     })
 }
 
+function* workerSagaPost({postId}) {
+    try {
+        const path = `posts/${postId}`;
+        const response = yield call(fetchData, path);
+        const post = response.data;
+        yield put({type: "API_CALL_SUCCESS_POST", post});
+    } catch (error) {
+        yield put({type: "API_CALL_FAILURE", error});
+    }
+}
+
 function* workerSaga() {
     try {
-        const postsResponse = yield call(fetchPosts);
+        const postsResponse = yield call(fetchData, 'posts');
         const posts = postsResponse.data;
-
-        const usersResponse = yield call(fetchUsers);
+        // I don't know why, but jsonplaceholder.typicode response 104 elements))
+        posts.length = 100;
+        const usersResponse = yield call(fetchData, 'users');
         const users = usersResponse.data;
 
         const updatePosts = userToPost(posts, users);
