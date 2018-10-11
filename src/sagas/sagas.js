@@ -4,6 +4,7 @@ import axios from 'axios';
 export function* watcherSaga() {
     yield takeLatest('API_CALL_REQUEST_POSTS', workerSaga);
     yield takeLatest('API_CALL_REQUEST_POST', workerSagaPost);
+    yield takeLatest('API_CALL_REQUEST_COMMENTS', workerSagaComments);
 }
 
 function fetchData(path) {
@@ -30,6 +31,17 @@ function* workerSagaPost({postId}) {
         const response = yield call(fetchData, path);
         const post = response.data;
         yield put({type: "API_CALL_SUCCESS_POST", post});
+    } catch (error) {
+        yield put({type: "API_CALL_FAILURE", error});
+    }
+}
+
+function* workerSagaComments({postId}) {
+    try {
+        const path = `comments?postId=${postId}`;
+        const response = yield call(fetchData, path);
+        const comments = response.data;
+        yield put({type: "API_CALL_SUCCESS_COMMENTS", comments});
     } catch (error) {
         yield put({type: "API_CALL_FAILURE", error});
     }

@@ -8,7 +8,6 @@ import classes from './NavBar.css';
 class NavBar extends Component {
 
     render() {
-        console.log(this.props);
         return (
             <div className={classes.header}>
                 <div className={classes.HeaderContent}>

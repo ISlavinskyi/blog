@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Aux from '../../hoc/Wrapper'
 import Post from './Post/Post';
 
 import classes from './Posts.css';
