@@ -26,14 +26,33 @@ function userToPost(posts, users) {
     })
 }
 
+function addComment(comment) {
+    const {id, postId} = comment;
+    const localId = `${postId}%${id}`;
+    localStorage.setItem(localId, JSON.stringify({...comment}));
+}
+
 function* workerSagaComment({allComments, newComment}) {
     try {
+        yield addComment(newComment);
         const comments = [...allComments, newComment];
-
         yield put({type: "API_CALL_SUCCESS_COMMENT", comments});
     } catch (error) {
         yield put({type: "API_CALL_FAILURE", error});
     }
+}
+
+function localComments(postId) {
+    let localData = [];
+        for (let i=0; i<localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if(key.split('%')[0] === postId) {
+                let item = localStorage.getItem(key);
+                localData.push(JSON.parse(item));
+            }
+        }
+        return localData
+
 }
 
 function* workerSagaPost({postId}) {
@@ -51,7 +70,11 @@ function* workerSagaComments({postId}) {
     try {
         const path = `comments?postId=${postId}`;
         const response = yield call(fetchData, path);
-        const comments = response.data;
+        const local = yield localComments(postId);
+        let comments = response.data;
+        if(local.length) {
+            comments = [...comments, ...local];
+        }
         yield put({type: "API_CALL_SUCCESS_COMMENTS", comments});
     } catch (error) {
         yield put({type: "API_CALL_FAILURE", error});
