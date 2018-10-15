@@ -6,6 +6,7 @@ export function* watcherSaga() {
     yield takeLatest('API_CALL_REQUEST_POST', workerSagaPost);
     yield takeLatest('API_CALL_REQUEST_COMMENTS', workerSagaComments);
     yield takeLatest('API_CALL_ADD_COMMENT', workerSagaComment);
+    yield takeLatest('TITLE_SEARCH_REQUEST', workerSagaSearch);
 }
 
 function fetchData(path) {
@@ -44,15 +45,30 @@ function* workerSagaComment({allComments, newComment}) {
 
 function localComments(postId) {
     let localData = [];
-        for (let i=0; i<localStorage.length; i++) {
-            let key = localStorage.key(i);
-            if(key.split('%')[0] === postId) {
-                let item = localStorage.getItem(key);
-                localData.push(JSON.parse(item));
-            }
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key.split('%')[0] === postId) {
+            let item = localStorage.getItem(key);
+            localData.push(JSON.parse(item));
         }
-        return localData
+    }
+    return localData
+}
 
+function titleSearch(title, posts) {
+    return posts.filter(post => {
+        return post.title.includes(title);
+    })
+}
+
+
+function* workerSagaSearch({title, posts}) {
+    try {
+        const updatePosts = yield titleSearch(title, posts);
+        yield put({type: "TITLE_SEARCH_SUCCESS", updatePosts})
+    } catch (error) {
+        yield put({type: "API_CALL_FAILURE", error});
+    }
 }
 
 function* workerSagaPost({postId}) {
@@ -72,7 +88,7 @@ function* workerSagaComments({postId}) {
         const response = yield call(fetchData, path);
         const local = yield localComments(postId);
         let comments = response.data;
-        if(local.length) {
+        if (local.length) {
             comments = [...comments, ...local];
         }
         yield put({type: "API_CALL_SUCCESS_COMMENTS", comments});

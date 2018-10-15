@@ -8,6 +8,8 @@ const API_CALL_SUCCESS_COMMENT = "API_CALL_SUCCESS_COMMENT";
 const API_CALL_SUCCESS_POST = "API_CALL_SUCCESS_POST";
 const API_CALL_SUCCESS = "API_CALL_SUCCESS";
 const API_CALL_FAILURE = "API_CALL_FAILURE";
+const TITLE_SEARCH_REQUEST = "TITLE_SEARCH_REQUEST";
+const TITLE_SEARCH_SUCCESS = "TITLE_SEARCH_SUCCESS";
 
 // reducer with initial state
 const initialState = {
@@ -40,6 +42,10 @@ export function reducer(state = initialState, action) {
             return { ...state, fetching: true, posts: action.posts, post:{},  users: action.users, updatePosts: action.updatePosts };
         case API_CALL_FAILURE:
             return { ...state, fetching: false, posts: [], users: [], comments: [], error: action.error };
+        case TITLE_SEARCH_REQUEST:
+            return { ...state, fetching: true, error: null };
+        case TITLE_SEARCH_SUCCESS:
+            return { ...state, fetching: true, updatePosts: action.updatePosts };
         default:
             return state;
     }

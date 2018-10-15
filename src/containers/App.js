@@ -27,12 +27,17 @@ class App extends Component {
         alert(id)
     };
 
+    searchPost = (title) => {
+        const {onSearch, updatePosts:posts} = this.props;
+        onSearch(title, posts);
+    };
+
     render() {
 
         return (
             <Router>
                 <div className={classes.App}>
-                    <NavBar/>
+                    <NavBar search={this.searchPost}/>
                     {this.props.error && <p className={classes.Error}>Uh oh - something went wrong!</p>}
                     <Route exact path="/"
                            component={_ => <Landing posts={this.props.updatePosts}/>}
@@ -67,7 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRequestPosts: () => dispatch({type: "API_CALL_REQUEST_POSTS"})
+        onRequestPosts: () => dispatch({type: "API_CALL_REQUEST_POSTS"}),
+        onSearch: (title, posts) => dispatch({type: "TITLE_SEARCH_REQUEST", title, posts})
     };
 };
 

@@ -28,7 +28,7 @@ class NavBar extends Component {
                             Users
                         </Link>
                     </div>
-                    <SearchInput/>
+                    <SearchInput search={this.props.search}/>
                 </div>
             </div>
         )

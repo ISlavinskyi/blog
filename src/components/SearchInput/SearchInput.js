@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import classes from './SearchInput.css';
 
-const searchInput = () => {
-    return (
-        <div className={classes.InputWrapper}>
-            <input
-                className={classes.Input}
-                placeholder="search"
-            />
-        </div>
+class SearchInput extends Component {
+    render() {
 
-    )
-};
 
-export default searchInput;
+        return (
+            <div className={classes.InputWrapper}>
+                <input
+                    className={classes.Input}
+                    placeholder="search"
+                    onChange={(event) => this.props.search(event.target.value)}
+                />
+            </div>
+
+        )
+    }
+}
+
+export default SearchInput;
