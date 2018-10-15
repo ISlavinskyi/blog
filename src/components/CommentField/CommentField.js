@@ -11,9 +11,6 @@ class CommentField extends Component {
     render() {
 
         const onAddComment = () => {
-            // localStorage.setItem('comment', JSON.stringify(this.state));
-            // this.props.addCommentHandler();
-           // console.log(this.props.addCommentHandler)
             this.props.addComment(this.state);
 
             this.textRef.value = '';
