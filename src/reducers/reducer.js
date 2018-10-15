@@ -2,7 +2,9 @@
 const API_CALL_REQUEST_POSTS = "API_CALL_REQUEST_POSTS";
 const API_CALL_REQUEST_COMMENTS = "API_CALL_REQUEST_COMMENTS";
 const API_CALL_REQUEST_POST = "API_CALL_REQUEST_POST";
+const API_CALL_ADD_COMMENT = "API_CALL_ADD_COMMENT";
 const API_CALL_SUCCESS_COMMENTS = "API_CALL_SUCCESS_COMMENTS";
+const API_CALL_SUCCESS_COMMENT = "API_CALL_SUCCESS_COMMENT";
 const API_CALL_SUCCESS_POST = "API_CALL_SUCCESS_POST";
 const API_CALL_SUCCESS = "API_CALL_SUCCESS";
 const API_CALL_FAILURE = "API_CALL_FAILURE";
@@ -28,7 +30,11 @@ export function reducer(state = initialState, action) {
             return { ...state, fetching: true, error: null };
         case API_CALL_SUCCESS_POST:
             return { ...state, fetching: true, post: action.post };
+        case API_CALL_ADD_COMMENT:
+            return { ...state, fetching: true, error: null };
         case API_CALL_SUCCESS_COMMENTS:
+            return { ...state, fetching: true, comments: action.comments };
+        case API_CALL_SUCCESS_COMMENT:
             return { ...state, fetching: true, comments: action.comments };
         case API_CALL_SUCCESS:
             return { ...state, fetching: true, posts: action.posts, post:{},  users: action.users, updatePosts: action.updatePosts };

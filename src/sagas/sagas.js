@@ -5,6 +5,7 @@ export function* watcherSaga() {
     yield takeLatest('API_CALL_REQUEST_POSTS', workerSaga);
     yield takeLatest('API_CALL_REQUEST_POST', workerSagaPost);
     yield takeLatest('API_CALL_REQUEST_COMMENTS', workerSagaComments);
+    yield takeLatest('API_CALL_ADD_COMMENT', workerSagaComment);
 }
 
 function fetchData(path) {
@@ -23,6 +24,16 @@ function userToPost(posts, users) {
         const {username} = user[0];
         return Object.assign({}, post, {username});
     })
+}
+
+function* workerSagaComment({allComments, newComment}) {
+    try {
+        const comments = [...allComments, newComment];
+
+        yield put({type: "API_CALL_SUCCESS_COMMENT", comments});
+    } catch (error) {
+        yield put({type: "API_CALL_FAILURE", error});
+    }
 }
 
 function* workerSagaPost({postId}) {

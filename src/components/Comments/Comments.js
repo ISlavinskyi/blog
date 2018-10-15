@@ -3,7 +3,6 @@ import React  from 'react';
 import Comment from './Comment/Coment';
 
 const Comments = (props) =>{
-
         const comments = props.comments.map((comment, index) => <Comment
             index={index+1}
             key={comment.id}
